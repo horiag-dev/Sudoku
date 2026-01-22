@@ -75,9 +75,35 @@ struct TechniqueHint: Identifiable {
     let eliminationCells: [Int] // Cells where candidates can be eliminated
     let candidates: Set<Int> // The candidate numbers involved
     let explanation: String
+    let detailedSteps: [HintStep] // Step-by-step walkthrough
 
     var title: String {
         technique.rawValue
+    }
+
+    init(technique: TechniqueType, affectedCells: [Int], eliminationCells: [Int], candidates: Set<Int>, explanation: String, detailedSteps: [HintStep] = []) {
+        self.technique = technique
+        self.affectedCells = affectedCells
+        self.eliminationCells = eliminationCells
+        self.candidates = candidates
+        self.explanation = explanation
+        self.detailedSteps = detailedSteps
+    }
+}
+
+/// A single step in a hint explanation
+struct HintStep: Identifiable {
+    let id = UUID()
+    let title: String
+    let explanation: String
+    let highlightCells: [Int]
+    let emoji: String
+
+    init(title: String, explanation: String, highlightCells: [Int] = [], emoji: String = "") {
+        self.title = title
+        self.explanation = explanation
+        self.highlightCells = highlightCells
+        self.emoji = emoji
     }
 }
 
