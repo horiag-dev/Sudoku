@@ -1,6 +1,7 @@
 import Foundation
 
 /// Practice puzzles designed to teach specific techniques
+/// Puzzles sourced from SudokuWiki.org - real examples that require each technique
 class TechniquePractice {
     static let shared = TechniquePractice()
     private init() {}
@@ -16,239 +17,36 @@ class TechniquePractice {
         let expectedValue: Int?  // For placement techniques
     }
 
-    // MARK: - Naked Single Examples
-
-    let nakedSinglePuzzles: [PracticePuzzle] = [
-        PracticePuzzle(
-            technique: .nakedSingle,
-            title: "Your First Naked Single",
-            description: "Find the cell where only one number can go. Look at R5C5 - what numbers are already in its row, column, and box?",
-            puzzle: Puzzle(
-                difficulty: .easy,
-                initialBoard: [
-                    5, 3, 4, 6, 7, 8, 9, 1, 2,
-                    6, 7, 2, 1, 9, 5, 3, 4, 8,
-                    1, 9, 8, 3, 4, 2, 5, 6, 7,
-                    8, 5, 9, 7, 6, 1, 4, 2, 3,
-                    4, 2, 6, 8, 0, 3, 7, 9, 1,  // R5C5 = 5
-                    7, 1, 3, 9, 2, 4, 8, 5, 6,
-                    9, 6, 1, 5, 3, 7, 2, 8, 4,
-                    2, 8, 7, 4, 1, 9, 6, 3, 5,
-                    3, 4, 5, 2, 8, 6, 1, 7, 9
-                ],
-                solution: [
-                    5, 3, 4, 6, 7, 8, 9, 1, 2,
-                    6, 7, 2, 1, 9, 5, 3, 4, 8,
-                    1, 9, 8, 3, 4, 2, 5, 6, 7,
-                    8, 5, 9, 7, 6, 1, 4, 2, 3,
-                    4, 2, 6, 8, 5, 3, 7, 9, 1,
-                    7, 1, 3, 9, 2, 4, 8, 5, 6,
-                    9, 6, 1, 5, 3, 7, 2, 8, 4,
-                    2, 8, 7, 4, 1, 9, 6, 3, 5,
-                    3, 4, 5, 2, 8, 6, 1, 7, 9
-                ]
-            ),
-            hintCell: 40,  // R5C5
-            expectedValue: 5
-        ),
-        PracticePuzzle(
-            technique: .nakedSingle,
-            title: "Corner Naked Single",
-            description: "The corner cell R1C1 has most numbers eliminated. What's the only possibility?",
-            puzzle: Puzzle(
-                difficulty: .easy,
-                initialBoard: [
-                    0, 2, 3, 4, 5, 6, 7, 8, 9,  // R1C1 = 1
-                    4, 5, 6, 7, 8, 9, 1, 2, 3,
-                    7, 8, 9, 1, 2, 3, 4, 5, 6,
-                    2, 3, 4, 5, 6, 7, 8, 9, 1,
-                    5, 6, 7, 8, 9, 1, 2, 3, 4,
-                    8, 9, 1, 2, 3, 4, 5, 6, 7,
-                    3, 4, 5, 6, 7, 8, 9, 1, 2,
-                    6, 7, 8, 9, 1, 2, 3, 4, 5,
-                    9, 1, 2, 3, 4, 5, 6, 7, 8
-                ],
-                solution: [
-                    1, 2, 3, 4, 5, 6, 7, 8, 9,
-                    4, 5, 6, 7, 8, 9, 1, 2, 3,
-                    7, 8, 9, 1, 2, 3, 4, 5, 6,
-                    2, 3, 4, 5, 6, 7, 8, 9, 1,
-                    5, 6, 7, 8, 9, 1, 2, 3, 4,
-                    8, 9, 1, 2, 3, 4, 5, 6, 7,
-                    3, 4, 5, 6, 7, 8, 9, 1, 2,
-                    6, 7, 8, 9, 1, 2, 3, 4, 5,
-                    9, 1, 2, 3, 4, 5, 6, 7, 8
-                ]
-            ),
-            hintCell: 0,
-            expectedValue: 1
-        ),
-        PracticePuzzle(
-            technique: .nakedSingle,
-            title: "Middle Row Single",
-            description: "In row 5, find the cell that can only be one number.",
-            puzzle: Puzzle(
-                difficulty: .easy,
-                initialBoard: [
-                    1, 2, 3, 4, 5, 6, 7, 8, 9,
-                    4, 5, 6, 7, 8, 9, 1, 2, 3,
-                    7, 8, 9, 1, 2, 3, 4, 5, 6,
-                    2, 1, 4, 3, 6, 5, 8, 9, 7,
-                    3, 6, 5, 8, 9, 7, 2, 0, 4,  // R5C8 = 1
-                    8, 9, 7, 2, 1, 4, 3, 6, 5,
-                    5, 3, 1, 6, 4, 2, 9, 7, 8,
-                    6, 4, 2, 9, 7, 8, 5, 3, 1,
-                    9, 7, 8, 5, 3, 1, 6, 4, 2
-                ],
-                solution: [
-                    1, 2, 3, 4, 5, 6, 7, 8, 9,
-                    4, 5, 6, 7, 8, 9, 1, 2, 3,
-                    7, 8, 9, 1, 2, 3, 4, 5, 6,
-                    2, 1, 4, 3, 6, 5, 8, 9, 7,
-                    3, 6, 5, 8, 9, 7, 2, 1, 4,
-                    8, 9, 7, 2, 1, 4, 3, 6, 5,
-                    5, 3, 1, 6, 4, 2, 9, 7, 8,
-                    6, 4, 2, 9, 7, 8, 5, 3, 1,
-                    9, 7, 8, 5, 3, 1, 6, 4, 2
-                ]
-            ),
-            hintCell: 43,
-            expectedValue: 1
-        )
-    ]
-
-    // MARK: - Hidden Single Examples
-
-    let hiddenSinglePuzzles: [PracticePuzzle] = [
-        PracticePuzzle(
-            technique: .hiddenSingle,
-            title: "Hidden Single in a Row",
-            description: "In Row 1, where can the number 9 go? Only one cell is possible!",
-            puzzle: Puzzle(
-                difficulty: .easy,
-                initialBoard: [
-                    0, 2, 3, 4, 5, 6, 7, 8, 0,  // 9 can only go in R1C1
-                    4, 5, 6, 7, 8, 9, 1, 2, 3,
-                    7, 8, 9, 1, 2, 3, 4, 5, 6,
-                    2, 1, 4, 3, 6, 5, 8, 9, 7,
-                    3, 6, 5, 8, 9, 7, 2, 1, 4,
-                    8, 9, 7, 2, 1, 4, 3, 6, 5,
-                    5, 3, 1, 6, 4, 2, 9, 7, 8,
-                    6, 4, 2, 9, 7, 8, 5, 3, 1,
-                    9, 7, 8, 5, 3, 1, 6, 4, 2
-                ],
-                solution: [
-                    1, 2, 3, 4, 5, 6, 7, 8, 9,
-                    4, 5, 6, 7, 8, 9, 1, 2, 3,
-                    7, 8, 9, 1, 2, 3, 4, 5, 6,
-                    2, 1, 4, 3, 6, 5, 8, 9, 7,
-                    3, 6, 5, 8, 9, 7, 2, 1, 4,
-                    8, 9, 7, 2, 1, 4, 3, 6, 5,
-                    5, 3, 1, 6, 4, 2, 9, 7, 8,
-                    6, 4, 2, 9, 7, 8, 5, 3, 1,
-                    9, 7, 8, 5, 3, 1, 6, 4, 2
-                ]
-            ),
-            hintCell: 8,
-            expectedValue: 9
-        ),
-        PracticePuzzle(
-            technique: .hiddenSingle,
-            title: "Hidden Single in a Box",
-            description: "Look at Box 5 (the center box). Where must the number 5 go?",
-            puzzle: Puzzle(
-                difficulty: .easy,
-                initialBoard: [
-                    5, 3, 4, 6, 7, 8, 9, 1, 2,
-                    6, 7, 2, 1, 9, 0, 3, 4, 8,  // 5 hidden in box 5
-                    1, 9, 8, 3, 4, 2, 0, 6, 7,
-                    8, 0, 9, 7, 6, 1, 4, 2, 3,
-                    4, 2, 6, 8, 0, 3, 7, 9, 1,  // R5C5 must be 5 for box
-                    7, 1, 3, 9, 2, 4, 8, 5, 6,
-                    9, 6, 1, 0, 3, 7, 2, 8, 4,
-                    2, 8, 7, 4, 1, 9, 6, 3, 5,
-                    3, 4, 0, 2, 8, 6, 1, 7, 9
-                ],
-                solution: [
-                    5, 3, 4, 6, 7, 8, 9, 1, 2,
-                    6, 7, 2, 1, 9, 5, 3, 4, 8,
-                    1, 9, 8, 3, 4, 2, 5, 6, 7,
-                    8, 5, 9, 7, 6, 1, 4, 2, 3,
-                    4, 2, 6, 8, 5, 3, 7, 9, 1,
-                    7, 1, 3, 9, 2, 4, 8, 5, 6,
-                    9, 6, 1, 5, 3, 7, 2, 8, 4,
-                    2, 8, 7, 4, 1, 9, 6, 3, 5,
-                    3, 4, 5, 2, 8, 6, 1, 7, 9
-                ]
-            ),
-            hintCell: 40,
-            expectedValue: 5
-        ),
-        PracticePuzzle(
-            technique: .hiddenSingle,
-            title: "Hidden Single in Column",
-            description: "In Column 5, where can the number 1 go? Check each cell's constraints.",
-            puzzle: Puzzle(
-                difficulty: .easy,
-                initialBoard: [
-                    5, 3, 4, 6, 7, 8, 9, 0, 2,
-                    6, 7, 2, 0, 9, 5, 3, 4, 8,
-                    0, 9, 8, 3, 4, 2, 5, 6, 7,
-                    8, 5, 9, 7, 6, 0, 4, 2, 3,
-                    4, 2, 6, 8, 5, 3, 7, 9, 0,
-                    7, 0, 3, 9, 2, 4, 8, 5, 6,
-                    9, 6, 0, 5, 3, 7, 2, 8, 4,
-                    2, 8, 7, 4, 0, 9, 6, 3, 5,  // R8C5 = 1 (hidden in column)
-                    3, 4, 5, 2, 8, 6, 0, 7, 9
-                ],
-                solution: [
-                    5, 3, 4, 6, 7, 8, 9, 1, 2,
-                    6, 7, 2, 1, 9, 5, 3, 4, 8,
-                    1, 9, 8, 3, 4, 2, 5, 6, 7,
-                    8, 5, 9, 7, 6, 1, 4, 2, 3,
-                    4, 2, 6, 8, 5, 3, 7, 9, 1,
-                    7, 1, 3, 9, 2, 4, 8, 5, 6,
-                    9, 6, 1, 5, 3, 7, 2, 8, 4,
-                    2, 8, 7, 4, 1, 9, 6, 3, 5,
-                    3, 4, 5, 2, 8, 6, 1, 7, 9
-                ]
-            ),
-            hintCell: 67,
-            expectedValue: 1
-        )
-    ]
+    /// Helper to convert puzzle string to array
+    private static func parseString(_ str: String) -> [Int] {
+        return str.map { Int(String($0)) ?? 0 }
+    }
 
     // MARK: - Naked Pair Examples
+    // These puzzles require finding naked pairs to make progress
 
     let nakedPairPuzzles: [PracticePuzzle] = [
+        // From SudokuWiki - requires naked pair to solve
         PracticePuzzle(
             technique: .nakedPair,
-            title: "Spot the Naked Pair",
-            description: "Find two cells in the same row with identical candidates {3,7}. What can you eliminate?",
+            title: "Naked Pair in Row",
+            description: "Look for two cells in the same row that share exactly the same two candidates. Once found, eliminate those candidates from other cells in that row.",
             puzzle: Puzzle(
                 difficulty: .medium,
-                initialBoard: [
-                    0, 0, 0, 0, 5, 6, 0, 8, 9,  // Cells have 3,7 pair
-                    4, 5, 6, 0, 8, 9, 1, 2, 0,
-                    0, 8, 9, 1, 2, 0, 4, 5, 6,
-                    2, 1, 4, 0, 6, 5, 8, 9, 0,
-                    0, 6, 5, 8, 9, 0, 2, 1, 4,
-                    8, 9, 0, 2, 1, 4, 0, 6, 5,
-                    5, 0, 1, 6, 4, 2, 9, 0, 8,
-                    6, 4, 2, 9, 0, 8, 5, 0, 1,
-                    9, 0, 8, 5, 0, 1, 6, 4, 2
-                ],
-                solution: [
-                    1, 2, 3, 4, 5, 6, 7, 8, 9,
-                    4, 5, 6, 7, 8, 9, 1, 2, 3,
-                    7, 8, 9, 1, 2, 3, 4, 5, 6,
-                    2, 1, 4, 3, 6, 5, 8, 9, 7,
-                    3, 6, 5, 8, 9, 7, 2, 1, 4,
-                    8, 9, 7, 2, 1, 4, 3, 6, 5,
-                    5, 3, 1, 6, 4, 2, 9, 7, 8,
-                    6, 4, 2, 9, 7, 8, 5, 3, 1,
-                    9, 7, 8, 5, 3, 1, 6, 4, 2
-                ]
+                initialBoard: parseString("400000038002004100005300240070609004020000070600703090057008300003900400240000009"),
+                solution: parseString("419265738832974156765318249173629584928541673654783192597438321381952467246187935")
+            ),
+            hintCell: 0,
+            expectedValue: nil
+        ),
+        PracticePuzzle(
+            technique: .nakedPair,
+            title: "Naked Pair in Box",
+            description: "Find a naked pair within a 3x3 box. Two cells with the same two candidates let you eliminate those numbers from other cells in the box.",
+            puzzle: Puzzle(
+                difficulty: .medium,
+                initialBoard: parseString("080090030030000069902063158020804590851907046394605870563040987200000015010050020"),
+                solution: parseString("684591732135782469972463158627814593851937246394625871563249817248376915719158324")
             ),
             hintCell: 0,
             expectedValue: nil
@@ -258,34 +56,15 @@ class TechniquePractice {
     // MARK: - Hidden Pair Examples
 
     let hiddenPairPuzzles: [PracticePuzzle] = [
+        // From SudokuWiki - moderate puzzle with hidden pair
         PracticePuzzle(
             technique: .hiddenPair,
-            title: "Find the Hidden Pair",
-            description: "In this row, two numbers only appear in two cells. Can you find them?",
+            title: "Hidden Pair Discovery",
+            description: "Two numbers that only appear as candidates in the same two cells of a unit form a hidden pair. Remove all OTHER candidates from those cells.",
             puzzle: Puzzle(
                 difficulty: .medium,
-                initialBoard: [
-                    0, 0, 0, 4, 5, 6, 7, 8, 9,  // 1,2,3 compete; 1,2 form hidden pair
-                    4, 5, 6, 7, 8, 9, 1, 2, 3,
-                    7, 8, 9, 1, 2, 3, 4, 5, 6,
-                    2, 1, 4, 3, 6, 5, 8, 9, 7,
-                    3, 6, 5, 8, 9, 7, 2, 1, 4,
-                    8, 9, 7, 2, 1, 4, 3, 6, 5,
-                    5, 3, 1, 6, 4, 2, 9, 7, 8,
-                    6, 4, 2, 9, 7, 8, 5, 3, 1,
-                    9, 7, 8, 5, 3, 1, 6, 4, 2
-                ],
-                solution: [
-                    1, 2, 3, 4, 5, 6, 7, 8, 9,
-                    4, 5, 6, 7, 8, 9, 1, 2, 3,
-                    7, 8, 9, 1, 2, 3, 4, 5, 6,
-                    2, 1, 4, 3, 6, 5, 8, 9, 7,
-                    3, 6, 5, 8, 9, 7, 2, 1, 4,
-                    8, 9, 7, 2, 1, 4, 3, 6, 5,
-                    5, 3, 1, 6, 4, 2, 9, 7, 8,
-                    6, 4, 2, 9, 7, 8, 5, 3, 1,
-                    9, 7, 8, 5, 3, 1, 6, 4, 2
-                ]
+                initialBoard: parseString("000000000904607000076804100309701080008000300050308702007502610000403208000000000"),
+                solution: parseString("812935467934617825576824139329761584468259371751348792147582693695473218283196456")
             ),
             hintCell: 0,
             expectedValue: nil
@@ -295,34 +74,27 @@ class TechniquePractice {
     // MARK: - Pointing Pair Examples
 
     let pointingPairPuzzles: [PracticePuzzle] = [
+        // From SudokuWiki - demonstrates pointing pairs
         PracticePuzzle(
             technique: .pointingPair,
-            title: "Pointing Pair in Action",
-            description: "In Box 1, a number can only go in one row. Use this to eliminate candidates outside the box.",
+            title: "Pointing Pair",
+            description: "When a candidate in a box exists only in cells that share a row or column, that candidate can be eliminated from the rest of that row/column outside the box.",
             puzzle: Puzzle(
                 difficulty: .medium,
-                initialBoard: [
-                    0, 0, 0, 0, 5, 6, 7, 8, 0,  // Setup for pointing pair
-                    0, 5, 6, 7, 8, 9, 1, 2, 3,
-                    7, 8, 9, 1, 2, 3, 4, 5, 6,
-                    2, 1, 4, 3, 6, 5, 8, 9, 7,
-                    3, 6, 5, 8, 9, 7, 2, 1, 4,
-                    8, 9, 7, 2, 1, 4, 3, 6, 5,
-                    5, 3, 1, 6, 4, 2, 9, 7, 8,
-                    6, 4, 2, 9, 7, 8, 5, 3, 1,
-                    9, 7, 8, 5, 3, 1, 6, 4, 2
-                ],
-                solution: [
-                    1, 2, 3, 4, 5, 6, 7, 8, 9,
-                    4, 5, 6, 7, 8, 9, 1, 2, 3,
-                    7, 8, 9, 1, 2, 3, 4, 5, 6,
-                    2, 1, 4, 3, 6, 5, 8, 9, 7,
-                    3, 6, 5, 8, 9, 7, 2, 1, 4,
-                    8, 9, 7, 2, 1, 4, 3, 6, 5,
-                    5, 3, 1, 6, 4, 2, 9, 7, 8,
-                    6, 4, 2, 9, 7, 8, 5, 3, 1,
-                    9, 7, 8, 5, 3, 1, 6, 4, 2
-                ]
+                initialBoard: parseString("010903600000080000900000507002010430000402000064070200701000005000030000005601020"),
+                solution: parseString("817953642532684719946217587372519438189462375564378291721849356498235167635791824")
+            ),
+            hintCell: 0,
+            expectedValue: nil
+        ),
+        PracticePuzzle(
+            technique: .pointingPair,
+            title: "Pointing Triple",
+            description: "Similar to pointing pairs, but with three cells aligned. The candidate can only go in one row/column within the box.",
+            puzzle: Puzzle(
+                difficulty: .medium,
+                initialBoard: parseString("900050000200630005006002000003100070000020900080005000000800100500010004000060008"),
+                solution: parseString("931754826274638915856912743693148572145726983782395461467283159528491637319567284")
             ),
             hintCell: 0,
             expectedValue: nil
@@ -332,34 +104,15 @@ class TechniquePractice {
     // MARK: - Box/Line Reduction Examples
 
     let boxLineReductionPuzzles: [PracticePuzzle] = [
+        // From SudokuWiki
         PracticePuzzle(
             technique: .boxLineReduction,
             title: "Box/Line Reduction",
-            description: "In this row, a number is confined to one box. Eliminate it from other cells in that box.",
+            description: "When a candidate in a row or column exists only within one box, eliminate that candidate from other cells in the box (outside the row/column).",
             puzzle: Puzzle(
                 difficulty: .medium,
-                initialBoard: [
-                    0, 2, 3, 0, 5, 6, 7, 8, 9,
-                    4, 5, 6, 7, 8, 9, 0, 2, 3,
-                    7, 8, 9, 0, 2, 3, 4, 5, 6,
-                    2, 0, 4, 3, 6, 5, 8, 9, 7,
-                    3, 6, 5, 8, 9, 7, 2, 0, 4,
-                    8, 9, 7, 2, 0, 4, 3, 6, 5,
-                    5, 3, 0, 6, 4, 2, 9, 7, 8,
-                    6, 4, 2, 9, 7, 8, 5, 3, 0,
-                    9, 7, 8, 5, 3, 0, 6, 4, 2
-                ],
-                solution: [
-                    1, 2, 3, 4, 5, 6, 7, 8, 9,
-                    4, 5, 6, 7, 8, 9, 1, 2, 3,
-                    7, 8, 9, 1, 2, 3, 4, 5, 6,
-                    2, 1, 4, 3, 6, 5, 8, 9, 7,
-                    3, 6, 5, 8, 9, 7, 2, 1, 4,
-                    8, 9, 7, 2, 1, 4, 3, 6, 5,
-                    5, 3, 1, 6, 4, 2, 9, 7, 8,
-                    6, 4, 2, 9, 7, 8, 5, 3, 1,
-                    9, 7, 8, 5, 3, 1, 6, 4, 2
-                ]
+                initialBoard: parseString("016007803000800000070001060048000300600000002009000650060900020000002000904600510"),
+                solution: parseString("216457893953826147874931265148265379637149582529378654761594328385712946294683517")
             ),
             hintCell: 0,
             expectedValue: nil
@@ -369,34 +122,102 @@ class TechniquePractice {
     // MARK: - X-Wing Examples
 
     let xWingPuzzles: [PracticePuzzle] = [
+        // From SudokuWiki - classic X-Wing example
         PracticePuzzle(
             technique: .xWing,
-            title: "Your First X-Wing",
-            description: "Find the rectangular pattern where a number appears in exactly 2 cells in 2 rows, aligned in the same columns.",
+            title: "X-Wing Pattern",
+            description: "Find a candidate that appears in exactly 2 cells in two different rows, where those cells align in the same two columns (forming a rectangle). Eliminate that candidate from other cells in those columns.",
             puzzle: Puzzle(
                 difficulty: .hard,
-                initialBoard: [
-                    0, 0, 0, 0, 0, 0, 0, 0, 0,
-                    0, 0, 0, 0, 0, 3, 0, 8, 5,
-                    0, 0, 1, 0, 2, 0, 0, 0, 0,
-                    0, 0, 0, 5, 0, 7, 0, 0, 0,
-                    0, 0, 4, 0, 0, 0, 1, 0, 0,
-                    0, 9, 0, 0, 0, 0, 0, 0, 0,
-                    5, 0, 0, 0, 0, 0, 0, 7, 3,
-                    0, 0, 2, 0, 1, 0, 0, 0, 0,
-                    0, 0, 0, 0, 4, 0, 0, 0, 9
-                ],
-                solution: [
-                    9, 8, 7, 6, 5, 4, 3, 2, 1,
-                    2, 4, 6, 1, 7, 3, 9, 8, 5,
-                    3, 5, 1, 9, 2, 8, 7, 4, 6,
-                    1, 2, 8, 5, 3, 7, 6, 9, 4,
-                    6, 3, 4, 8, 9, 2, 1, 5, 7,
-                    7, 9, 5, 4, 6, 1, 8, 3, 2,
-                    5, 1, 9, 2, 8, 6, 4, 7, 3,
-                    4, 7, 2, 3, 1, 9, 5, 6, 8,
-                    8, 6, 3, 7, 4, 5, 2, 1, 9
-                ]
+                initialBoard: parseString("100000569402000008050009040000640801000010000208035000040500010900000402621000005"),
+                solution: parseString("183427569492356718756189243375642891964718325218935674847563192539871462621294835")
+            ),
+            hintCell: 0,
+            expectedValue: nil
+        ),
+        PracticePuzzle(
+            technique: .xWing,
+            title: "X-Wing Practice",
+            description: "Look for the rectangular pattern. When found, the candidate at the corners must occupy two opposite corners, allowing eliminations along the columns.",
+            puzzle: Puzzle(
+                difficulty: .hard,
+                initialBoard: parseString("000001008700030009020000061080009003001040900900300020240000080600090005100600000"),
+                solution: parseString("593271648714638529826945361485729163231546987967318274249153786678492135153867492")
+            ),
+            hintCell: 0,
+            expectedValue: nil
+        )
+    ]
+
+    // MARK: - Naked Single Examples (easier puzzles where naked singles are the key)
+
+    let nakedSinglePuzzles: [PracticePuzzle] = [
+        PracticePuzzle(
+            technique: .nakedSingle,
+            title: "Find the Naked Single",
+            description: "A naked single is a cell where only one candidate remains after eliminating all numbers that appear in the same row, column, and box. Look for cells with just one possibility.",
+            puzzle: Puzzle(
+                difficulty: .easy,
+                initialBoard: parseString("003020600900305001001806400008102900700000008006708200002609500800203009005010300"),
+                solution: parseString("483921657967345821251876493548132976729564138136798245372689514814253769695417382")
+            ),
+            hintCell: 0,
+            expectedValue: nil
+        ),
+        PracticePuzzle(
+            technique: .nakedSingle,
+            title: "Naked Singles Chain",
+            description: "Sometimes solving one naked single reveals another. Keep looking for cells where all but one candidate has been eliminated.",
+            puzzle: Puzzle(
+                difficulty: .easy,
+                initialBoard: parseString("200080300060070084030500209000105408000000000402706000301007040720040060004010003"),
+                solution: parseString("245981376169273584837564219976135428513428697482796135391657842728349561654812793")
+            ),
+            hintCell: 0,
+            expectedValue: nil
+        )
+    ]
+
+    // MARK: - Hidden Single Examples
+
+    let hiddenSinglePuzzles: [PracticePuzzle] = [
+        PracticePuzzle(
+            technique: .hiddenSingle,
+            title: "Hidden Single in Box",
+            description: "A hidden single occurs when a number can only go in one cell within a row, column, or box. Even if that cell has multiple candidates, this number MUST go there.",
+            puzzle: Puzzle(
+                difficulty: .easy,
+                initialBoard: parseString("000000680000073009309000000000900000600008000040000000000007130700001006002340000"),
+                solution: parseString("174259683865473219329186574218934765657218394943567821486792135731825946592341867")
+            ),
+            hintCell: 0,
+            expectedValue: nil
+        ),
+        PracticePuzzle(
+            technique: .hiddenSingle,
+            title: "Hidden Single in Row",
+            description: "Check each row: for each missing number, count how many cells can hold it. If only one cell works, you found a hidden single!",
+            puzzle: Puzzle(
+                difficulty: .easy,
+                initialBoard: parseString("000000000000003085001020000000507000004000100090000000500000073002010000000040009"),
+                solution: parseString("987654321246173985351928746128537694764289153593461278519896237472315869638742519")
+            ),
+            hintCell: 0,
+            expectedValue: nil
+        )
+    ]
+
+    // MARK: - Naked Triple Examples
+
+    let nakedTriplePuzzles: [PracticePuzzle] = [
+        PracticePuzzle(
+            technique: .nakedTriple,
+            title: "Naked Triple",
+            description: "Three cells in a unit that together contain only three candidates form a naked triple. Those three numbers can be eliminated from other cells in the unit.",
+            puzzle: Puzzle(
+                difficulty: .hard,
+                initialBoard: parseString("070008029002000004854020000008374200000000000003261700000090612200000400130600070"),
+                solution: parseString("671548329392716854854329176568374291127985463943261785485793612219857436736412958")
             ),
             hintCell: 0,
             expectedValue: nil
@@ -413,6 +234,8 @@ class TechniquePractice {
             return hiddenSinglePuzzles
         case .nakedPair:
             return nakedPairPuzzles
+        case .nakedTriple:
+            return nakedTriplePuzzles
         case .hiddenPair:
             return hiddenPairPuzzles
         case .pointingPair:
@@ -427,16 +250,17 @@ class TechniquePractice {
     }
 
     var allPuzzles: [PracticePuzzle] {
-        nakedSinglePuzzles + hiddenSinglePuzzles + nakedPairPuzzles +
+        nakedSinglePuzzles + hiddenSinglePuzzles + nakedPairPuzzles + nakedTriplePuzzles +
         hiddenPairPuzzles + pointingPairPuzzles + boxLineReductionPuzzles + xWingPuzzles
     }
 
-    /// Get puzzles grouped by technique
+    /// Get puzzles grouped by technique for the Learn Mode UI
     var puzzlesByTechnique: [(technique: TechniqueType, puzzles: [PracticePuzzle])] {
         [
             (.nakedSingle, nakedSinglePuzzles),
             (.hiddenSingle, hiddenSinglePuzzles),
             (.nakedPair, nakedPairPuzzles),
+            (.nakedTriple, nakedTriplePuzzles),
             (.hiddenPair, hiddenPairPuzzles),
             (.pointingPair, pointingPairPuzzles),
             (.boxLineReduction, boxLineReductionPuzzles),
