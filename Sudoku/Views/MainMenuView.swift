@@ -6,6 +6,7 @@ struct MainMenuView: View {
     @Binding var isShowingGame: Bool
     @Binding var generatedPuzzle: Puzzle?
     @State private var showingTechniqueLibrary = false
+    @State private var showingLearnMode = false
     @State private var isGenerating = false
     @State private var showingGenerateOptions = false
 
@@ -74,20 +75,52 @@ struct MainMenuView: View {
 
                 Spacer()
 
-                // Learn techniques button
-                Button(action: { showingTechniqueLibrary = true }) {
-                    HStack {
-                        Image(systemName: "book.fill")
-                        Text("Learn Techniques")
+                // Learn section
+                VStack(spacing: 12) {
+                    // Learn Mode - Practice techniques
+                    Button(action: { showingLearnMode = true }) {
+                        HStack {
+                            Image(systemName: "graduationcap.fill")
+                            Text("Learn Mode")
+                            Spacer()
+                            Text("Practice techniques")
+                                .font(.system(size: 12))
+                                .foregroundColor(Constants.Colors.candidates)
+                            Image(systemName: "chevron.right")
+                                .font(.system(size: 14))
+                        }
+                        .font(.system(size: 16, weight: .semibold))
+                        .foregroundColor(Constants.Colors.primaryButton)
+                        .padding()
+                        .frame(maxWidth: 340)
+                        .background(Constants.Colors.highlightHintAffected.opacity(0.5))
+                        .clipShape(RoundedRectangle(cornerRadius: Constants.Sizing.buttonCornerRadius))
                     }
-                    .font(.system(size: 16, weight: .medium))
-                    .foregroundColor(Constants.Colors.primaryButton)
-                    .padding()
+
+                    // Technique library
+                    Button(action: { showingTechniqueLibrary = true }) {
+                        HStack {
+                            Image(systemName: "book.fill")
+                            Text("Technique Library")
+                            Spacer()
+                            Image(systemName: "chevron.right")
+                                .font(.system(size: 14))
+                        }
+                        .font(.system(size: 16, weight: .medium))
+                        .foregroundColor(Constants.Colors.toolbarButton)
+                        .padding()
+                        .frame(maxWidth: 340)
+                        .background(Constants.Colors.highlightRowColBox.opacity(0.5))
+                        .clipShape(RoundedRectangle(cornerRadius: Constants.Sizing.buttonCornerRadius))
+                    }
                 }
 
                 Spacer()
             }
             .padding()
+        }
+        .sheet(isPresented: $showingLearnMode) {
+            LearnModeView()
         }
         .sheet(isPresented: $showingTechniqueLibrary) {
             TechniqueLibraryView()

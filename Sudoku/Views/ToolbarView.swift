@@ -100,7 +100,7 @@ struct ToolbarButton: View {
     }
 }
 
-/// Large prominent Notes button
+/// Large prominent Notes button with clear on/off state
 struct NotesButton: View {
     let isActive: Bool
     let action: () -> Void
@@ -108,23 +108,45 @@ struct NotesButton: View {
     var body: some View {
         Button(action: action) {
             VStack(spacing: 6) {
-                Image(systemName: "pencil.tip")
-                    .font(.system(size: 28, weight: .semibold))
-                    .foregroundColor(isActive ? .white : Constants.Colors.primaryButton)
-                    .frame(width: Constants.Sizing.toolbarButtonSizeLarge, height: Constants.Sizing.toolbarButtonSizeLarge)
-                    .background(isActive ? Constants.Colors.primaryButton : Constants.Colors.highlightSelected.opacity(0.6))
-                    .clipShape(Circle())
-                    .overlay(
-                        Circle()
-                            .stroke(Constants.Colors.primaryButton, lineWidth: isActive ? 0 : 2)
-                    )
+                ZStack {
+                    // Background circle
+                    Circle()
+                        .fill(isActive ? Constants.Colors.mediumColor : Constants.Colors.highlightRowColBox)
+                        .frame(width: Constants.Sizing.toolbarButtonSizeLarge, height: Constants.Sizing.toolbarButtonSizeLarge)
 
-                Text("Notes")
-                    .font(.system(size: 14, weight: .semibold))
-                    .foregroundColor(Constants.Colors.primaryButton)
+                    // Border when off
+                    if !isActive {
+                        Circle()
+                            .stroke(Constants.Colors.primaryButton.opacity(0.5), lineWidth: 2)
+                            .frame(width: Constants.Sizing.toolbarButtonSizeLarge, height: Constants.Sizing.toolbarButtonSizeLarge)
+                    }
+
+                    // Icon
+                    Image(systemName: isActive ? "pencil.tip.crop.circle.fill" : "pencil.tip")
+                        .font(.system(size: isActive ? 32 : 26, weight: .semibold))
+                        .foregroundColor(isActive ? .white : Constants.Colors.primaryButton)
+                }
+
+                // Label with ON/OFF indicator
+                HStack(spacing: 4) {
+                    Text("Notes")
+                        .font(.system(size: 13, weight: .semibold))
+
+                    if isActive {
+                        Text("ON")
+                            .font(.system(size: 10, weight: .bold))
+                            .foregroundColor(.white)
+                            .padding(.horizontal, 6)
+                            .padding(.vertical, 2)
+                            .background(Constants.Colors.mediumColor)
+                            .clipShape(Capsule())
+                    }
+                }
+                .foregroundColor(isActive ? Constants.Colors.mediumColor : Constants.Colors.primaryButton)
             }
         }
         .padding(.horizontal, 4)
+        .animation(.easeInOut(duration: 0.15), value: isActive)
     }
 }
 
