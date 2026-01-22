@@ -84,18 +84,22 @@ struct GameView: View {
                     onQuit: { dismiss() }
                 )
             }
+
+            // Completion overlay with confetti
+            if viewModel.isCompleted {
+                CompletionView(
+                    difficulty: viewModel.difficulty,
+                    time: viewModel.formattedTime,
+                    score: viewModel.score,
+                    hintsUsed: viewModel.hintsUsed,
+                    mistakes: viewModel.mistakes,
+                    techniquesUsed: viewModel.techniquesUsed,
+                    onNewGame: { showingNewGameAlert = true },
+                    onMainMenu: { dismiss() }
+                )
+            }
         }
         .navigationBarHidden(true)
-        .alert("Game Complete!", isPresented: $viewModel.showingCompletionAlert) {
-            Button("New Game") {
-                showingNewGameAlert = true
-            }
-            Button("Main Menu") {
-                dismiss()
-            }
-        } message: {
-            Text("Congratulations! You solved the puzzle.\nScore: \(viewModel.score)\nTime: \(viewModel.formattedTime)")
-        }
         .confirmationDialog("Select Difficulty", isPresented: $showingNewGameAlert) {
             ForEach(Difficulty.allCases) { difficulty in
                 Button(difficulty.rawValue) {

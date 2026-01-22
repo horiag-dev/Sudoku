@@ -14,6 +14,7 @@ class GameState: ObservableObject {
     @Published var selectedCellIndex: Int? = nil
     @Published var activeHint: TechniqueHint? = nil
     @Published var showingHint: Bool = false
+    @Published var techniquesUsed: Set<TechniqueType> = []
 
     private var undoStack: [Move] = []
     private var redoStack: [Move] = []
@@ -220,6 +221,7 @@ class GameState: ObservableObject {
             activeHint = hint
             showingHint = true
             hintsUsed += 1
+            techniquesUsed.insert(hint.technique)
 
             // Select the first affected cell
             if let firstCell = hint.affectedCells.first {
@@ -238,6 +240,7 @@ class GameState: ObservableObject {
             activeHint = hint
             showingHint = true
             hintsUsed += 1
+            techniquesUsed.insert(hint.technique)
 
             // Select the first affected cell
             if let firstCell = hint.affectedCells.first {

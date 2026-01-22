@@ -135,6 +135,10 @@ class GameViewModel: ObservableObject {
         gameState.activeHint
     }
 
+    var techniquesUsed: Set<TechniqueType> {
+        gameState.techniquesUsed
+    }
+
     func useHint() {
         gameState.useHint()
     }
@@ -296,6 +300,10 @@ class GameViewModel: ObservableObject {
 
     var mistakes: Int {
         gameState.mistakes
+    }
+
+    var hintsUsed: Int {
+        gameState.hintsUsed
     }
 
     var maxMistakes: Int {

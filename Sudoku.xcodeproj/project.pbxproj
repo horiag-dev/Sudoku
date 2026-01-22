@@ -34,6 +34,8 @@
 		025 /* TechniqueExplorerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 125 /* TechniqueExplorerView.swift */; };
 		026 /* LearnModeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 126 /* LearnModeView.swift */; };
 		027 /* TechniquePractice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 127 /* TechniquePractice.swift */; };
+		028 /* ConfettiView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 128 /* ConfettiView.swift */; };
+		029 /* CompletionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 129 /* CompletionView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -65,6 +67,8 @@
 		125 /* TechniqueExplorerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TechniqueExplorerView.swift; sourceTree = "<group>"; };
 		126 /* LearnModeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LearnModeView.swift; sourceTree = "<group>"; };
 		127 /* TechniquePractice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TechniquePractice.swift; sourceTree = "<group>"; };
+		128 /* ConfettiView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfettiView.swift; sourceTree = "<group>"; };
+		129 /* CompletionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompletionView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -145,6 +149,8 @@
 				124 /* HintOverlayView.swift */,
 				125 /* TechniqueExplorerView.swift */,
 				126 /* LearnModeView.swift */,
+				128 /* ConfettiView.swift */,
+				129 /* CompletionView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -267,6 +273,8 @@
 				025 /* TechniqueExplorerView.swift in Sources */,
 				026 /* LearnModeView.swift in Sources */,
 				027 /* TechniquePractice.swift in Sources */,
+				028 /* ConfettiView.swift in Sources */,
+				029 /* CompletionView.swift in Sources */,
 				018 /* PuzzleSolver.swift in Sources */,
 				019 /* PuzzleGenerator.swift in Sources */,
 				020 /* PuzzleStore.swift in Sources */,
