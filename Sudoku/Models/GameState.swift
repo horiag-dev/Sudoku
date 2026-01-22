@@ -231,6 +231,24 @@ class GameState: ObservableObject {
         }
     }
 
+    /// Use a hint for a specific technique (for Learn Mode)
+    func useHintForTechnique(_ technique: TechniqueType) {
+        // Try to find a hint specifically for this technique
+        if let hint = TechniqueDetector.findHintForTechnique(technique, on: board) {
+            activeHint = hint
+            showingHint = true
+            hintsUsed += 1
+
+            // Select the first affected cell
+            if let firstCell = hint.affectedCells.first {
+                selectedCellIndex = firstCell
+            }
+        } else {
+            // Fallback to any hint if the specific technique isn't available
+            useHint()
+        }
+    }
+
     func applyHint() {
         guard let hint = activeHint else { return }
 

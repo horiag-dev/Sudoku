@@ -139,6 +139,11 @@ class GameViewModel: ObservableObject {
         gameState.useHint()
     }
 
+    /// Use a hint for a specific technique (for Learn Mode)
+    func useHintForTechnique(_ technique: TechniqueType) {
+        gameState.useHintForTechnique(technique)
+    }
+
     func applyHint() {
         gameState.applyHint()
     }

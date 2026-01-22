@@ -25,6 +25,34 @@ class TechniqueDetector {
         return hints
     }
 
+    /// Find a hint for a specific technique type (for Learn Mode)
+    static func findHintForTechnique(_ technique: TechniqueType, on board: Board) -> TechniqueHint? {
+        let boardArray = board.toArray()
+
+        switch technique {
+        case .nakedSingle:
+            return findNakedSingle(board: boardArray)
+        case .hiddenSingle:
+            return findHiddenSingle(board: boardArray)
+        case .nakedPair:
+            return findNakedPairs(board: boardArray).first
+        case .nakedTriple:
+            return nil // Not implemented yet
+        case .hiddenPair:
+            return findHiddenPairs(board: boardArray).first
+        case .hiddenTriple:
+            return nil // Not implemented yet
+        case .pointingPair:
+            return findPointingPairs(board: boardArray).first
+        case .boxLineReduction:
+            return findBoxLineReduction(board: boardArray).first
+        case .xWing:
+            return findXWing(board: boardArray).first
+        case .swordfish:
+            return nil // Not implemented yet
+        }
+    }
+
     /// Find the best hint (simplest technique) for the current position
     static func findBestHint(on board: Board) -> TechniqueHint? {
         let boardArray = board.toArray()

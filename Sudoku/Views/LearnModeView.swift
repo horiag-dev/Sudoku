@@ -173,7 +173,7 @@ struct PracticeGameView: View {
 
                     Spacer()
 
-                    Button(action: { viewModel.useHint() }) {
+                    Button(action: { viewModel.useHintForTechnique(practicePuzzle.technique) }) {
                         Image(systemName: "lightbulb.fill")
                             .font(.system(size: 20, weight: .medium))
                             .foregroundColor(Constants.Colors.mediumColor)
@@ -189,7 +189,7 @@ struct PracticeGameView: View {
                         onDismiss: { showingHintPrompt = false },
                         onShowHint: {
                             showingHintPrompt = false
-                            viewModel.useHint()
+                            viewModel.useHintForTechnique(practicePuzzle.technique)
                         }
                     )
                     .padding(.horizontal)
